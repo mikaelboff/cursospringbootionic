@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.mikaelboff.cursospringbootionic.domain.Categoria;
 import br.com.mikaelboff.cursospringbootionic.services.CategoriaService;
+import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value = "/categorias")
