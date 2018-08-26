@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.mikaelboff.cursospringbootionic.domain.Cidade;
 import br.com.mikaelboff.cursospringbootionic.domain.Cliente;
 import br.com.mikaelboff.cursospringbootionic.domain.Endereco;
+import br.com.mikaelboff.cursospringbootionic.domain.enums.Perfil;
 import br.com.mikaelboff.cursospringbootionic.domain.enums.TipoCliente;
 import br.com.mikaelboff.cursospringbootionic.dto.ClienteDTO;
 import br.com.mikaelboff.cursospringbootionic.dto.ClienteNewDTO;
 import br.com.mikaelboff.cursospringbootionic.repositories.ClienteRepository;
 import br.com.mikaelboff.cursospringbootionic.repositories.EnderecoRepository;
+import br.com.mikaelboff.cursospringbootionic.security.UserSS;
+import br.com.mikaelboff.cursospringbootionic.services.exceptions.AuthorizationException;
 import br.com.mikaelboff.cursospringbootionic.services.exceptions.DataIntegrityException;
 import br.com.mikaelboff.cursospringbootionic.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +39,13 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 
 	public Cliente find(Integer id) {
+
+		UserSS user = UserService.authenticated();
+
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Cliente> obj = repo.findById(id);
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
