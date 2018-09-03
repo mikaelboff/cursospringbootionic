@@ -70,7 +70,7 @@ public class CategoriaResource {
 
 		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok(listDto);
 	}
 
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
@@ -83,6 +83,6 @@ public class CategoriaResource {
 
 		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));
 
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok(listDto);
 	}
 }

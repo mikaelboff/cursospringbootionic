@@ -78,7 +78,7 @@ public class ClienteResource {
 
 		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok(listDto);
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
@@ -92,7 +92,7 @@ public class ClienteResource {
 
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
 
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok(listDto);
 	}
 
 	@RequestMapping(value = "/picture", method = RequestMethod.POST)

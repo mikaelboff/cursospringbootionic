@@ -48,6 +48,6 @@ public class PedidoResource {
 
 		Page<Pedido> list = service.findPage(page, linesPerPage, orderBy, direction);
 
-		return ResponseEntity.ok().body(list);
+		return ResponseEntity.ok(list);
 	}
 }
